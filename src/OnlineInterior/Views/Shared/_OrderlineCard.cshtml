@@ -1,0 +1,10 @@
+﻿@model Orderline
+
+<td class="text-left">@Model.ProductName</td>
+<td class="text-left">@Model.Supplier</td>
+
+<td class="text-right">@Model.Amount</td>
+<td class="text-right">@Model.UnitPrice</td>
+<td class="text-right">@Model.GetLineTotal()</td>
+
+

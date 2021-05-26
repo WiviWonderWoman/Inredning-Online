@@ -1,0 +1,33 @@
+﻿@model Orderline
+<form asp-controller="Project" asp-action="SaveOrderline" method="post">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="text-left"><label asp-for="ProjectId"></label></th>
+                <th class="text-left"><label asp-for="OrderLineId"></label></th>
+                <th class="text-left"><label asp-for="ProductName"></label></th>
+                <th class="text-left"><label asp-for="Supplier"></label></th>
+                <td class="text-right"><label asp-for="Info"></label></td>
+                <th class="text-right"><label asp-for="Amount"></label></th>
+                <th class="text-right"><label asp-for="UnitPrice"></label></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="text-left"><input asp-for="ProjectId" value="@Model.ProjectId" /></th>
+                <th class="text-left"><input asp-for="OrderLineId" value="@Model.OrderLineId" /></th>
+                <th class="text-left"><input asp-for="ProductName" value="" /></th>
+                <th class="text-left"><input asp-for="Supplier" value="" /></th>
+                <td class="text-right"><input asp-for="Info" value="" /></td>
+                <th class="text-right"><input asp-for="Amount" value="" /></th>
+                <th class="text-right"><input asp-for="UnitPrice" value="" /></th>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+            <input type="submit" class="btn btn-primary" value="Spara" />
+        </div>
+    </div>
+</form>

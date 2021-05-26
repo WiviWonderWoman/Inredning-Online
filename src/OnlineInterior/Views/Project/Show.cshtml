@@ -1,0 +1,106 @@
+@model ProjectShowViewModel
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    @if (@UserManager.GetUserName(User) == "ingrid@ballong.se")
+    {
+        @foreach (var project in Model.Projects)
+        {
+            <div>
+                <h2>
+                    <a asp-controller="Project" asp-action="Details" asp-route-id="@project.ProjectId">@project.ProjectName</a>
+                </h2>
+                <h3>@project.Creator</h3>
+            </div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-left">Produkt</th>
+                        <th class="text-left">Leverantör</th>
+                        <th class="text-right">Antal</th>
+                        <th class="text-right">Styck pris</th>
+                        <th class="text-right">Sub.total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var orderline in project.Orderlines)
+                    {
+                        <tr>
+                            <partial name="_OrderlineCard" model="orderline" />
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th colspan="5" class="text-center">ALLA PROJEKT</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" class="text-left">Totalt:</td>
+                    <td class="text-right">@Model.TotalPrice</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="text-left">Snittpris:</td>
+                    <td class="text-right">@Model.AveragePrice</td>
+                </tr>
+            </tbody>
+
+        </table>
+    }
+    @if (@UserManager.GetUserName(User) != "ingrid@ballong.se")
+    {
+        @foreach (var project in Model.Projects)
+        {
+            @if (project.Creator == @UserManager.GetUserName(User))
+            {
+                <div>
+                    <h2>
+                        <a asp-controller="Project" asp-action="Details" asp-route-id="@project.ProjectId">@project.ProjectName</a>
+                    </h2>
+                    <h3>@project.Creator</h3>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Produkt</th>
+                            <th class="text-left">Leverantör</th>
+                            <th class="text-right">Antal</th>
+                            <th class="text-right">Styck pris</th>
+                            <th class="text-right">Sub.total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var orderline in project.Orderlines)
+                        {
+                            <tr>
+                                <partial name="_OrderlineCard" model="orderline" />
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+        <p class="button">
+            <a class="btn btn-primary"
+               asp-controller="CollectionOfProjects"
+               asp-action="AddProject">Nytt Projekt</a>
+        </p>
+
+    }
+}
+else
+	{
+<div class="text-center">
+    <h1 class="display-4">Endast inloggade användare!</h1>
+</div>
+	}
+
+

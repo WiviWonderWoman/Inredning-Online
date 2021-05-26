@@ -1,0 +1,41 @@
+﻿@model Project
+
+<div>
+    <h2>@Model.ProjectName</h2>
+    <h3>@Model.Creator</h3>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th class="text-left">Produkt</th>
+            <th class="text-left">Leverantör</th>
+            <th class="text-right">Antal</th>
+            <th class="text-right">Styck pris</th>
+            <th class="text-right">Sub.total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var orderline in Model.Orderlines)
+        {
+            <tr>
+                <partial name="_OrderlineCard" model="orderline" />
+            </tr>
+            <tr>
+                <td class="text-left">Mer information</td>
+                <td colspan="4" class="text-center"><a href="@orderline.Info">@orderline.Info</a></td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" class="text-right">Totalt:</td>
+            <td class="text-right">@Model.GetProjectPrice()</td>
+        </tr>
+    </tfoot>
+</table>
+<p class="button">
+    <a class="btn btn-primary"
+       asp-controller="Project"
+       asp-action="Edit"
+       asp-route-id="@Model.ProjectId">Redigera</a>
+</p>

@@ -1,0 +1,23 @@
+﻿@model Orderline
+    <form asp-controller="Orderline" asp-action="Save" method="post">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th class="text-left"><input asp-for="OrderLineId" value="@Model.OrderLineId" /></th>
+                    <th class="text-left"><input asp-for="ProductName" value="@Model.ProductName" /></th>
+                    <th class="text-left"><input asp-for="Supplier" value="@Model.Supplier" /></th>
+                    <td class="text-right"><input asp-for="Info" value="@Model.Info" /></td>
+                    <th class="text-right"><input asp-for="Amount" value="@Model.Amount" /></th>
+                    <th class="text-right"><input asp-for="UnitPrice" value="@Model.UnitPrice" /></th>
+                </tr>
+            </thead>
+        </table>
+        
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" class="btn btn-primary" value="Spara" />
+            </div>
+        </div>
+    </form>
+
+

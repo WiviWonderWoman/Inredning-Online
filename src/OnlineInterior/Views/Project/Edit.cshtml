@@ -1,0 +1,70 @@
+﻿@model Project
+
+<form asp-controller="Project" asp-action="Save" method="post">
+
+    <div>
+        <label asp-for="ProjectId"></label>
+        <div>
+            <input asp-for="ProjectId" value="@Model.ProjectId" />
+        </div>
+    </div>
+    <div>
+        <label asp-for="ProjectName"></label>
+        <div>
+            <input asp-for="ProjectName" value="@Model.ProjectName" />
+        </div>
+    </div>
+
+    <div>
+        <label asp-for="Creator"></label>
+        <div>
+            <input asp-for="Creator" value="@Model.Creator" />
+        </div>
+    </div>
+    
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th class="text-left">Produkt</th>
+                <th class="text-left">Leverantör</th>
+                <th class="text-right">Länk</th>
+                <th class="text-left">Antal</th>
+                <th class="text-right">Styck pris</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model.Orderlines != null)
+            {
+                @foreach (var ordeline in Model.Orderlines)
+                {
+                    <tr>
+                        <partial name="_OrderlineCard" model="ordeline" />
+                        <td>
+                            <p class="button">
+                                <a class="btn btn-primary"
+                                   asp-controller="Orderline"
+                                   asp-action="Edit"
+                                   asp-route-id="@Model.ProjectId">Redigera</a>
+                            </p>
+                        </td>
+
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-5">
+            <input type="submit" class="btn btn-primary" value="Spara" />
+        </div>
+    </div>
+</form>
+<p class="button">
+    <a class="btn btn-primary"
+       asp-controller="Project"
+       asp-action="AddOrderline" asp-route-id="@Model.ProjectId">Lägg till Orderrad</a>
+</p>
